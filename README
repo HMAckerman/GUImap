@@ -1,4 +1,0 @@
-My Project
-
-This is a project that deals with porting the output of the popular network reconnaissance tool, nmap, to a database. It first outputs to a XML file and is then formatted and uploaded to a database. This is done with a GUI, and the user is able to specify the database name and a password if they so choose.
-
