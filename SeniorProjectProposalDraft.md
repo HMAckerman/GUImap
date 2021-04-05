@@ -145,13 +145,14 @@ experience. I don't intend to clutter their whole screen with "tips & tricks".
 The next step will be to create an easily modifiable database schema. I want my tool to
 be capable of pulling down from/uploading to a database quickly. I will research into ways to
 optimize performance. The main issue is that no database will be "one size fits all".
-Due to the advanced nature of the Nmap engine, there can potentially be *numerous* columns and rows depending on the
-flags used. However, from some brief research into the SQLite database engine,
+Due to the advanced nature of the Nmap engine, there can potentially be *numerous* columns
+and rows depending on the flags used. However, from some brief research into the SQLite database engine,
 it seems like it is easily modifiable to support larger sets of information.
-Finally, I will implement file input and output, and conversion into CSV files.
+Next, I will implement file input and output, and conversion into CSV files.
 I anticipate that the main problem will be getting different file formats to
 cooperate nicely. However, Python 3 has numerous libraries dedicated to various
-file formats, so this problem might easily be mitigated.
+file formats, so this problem might easily be mitigated. Finally, I will integrate the Grafana platform
+into the database, ensuring that the user will be able to visualize all their data.
 
 Schedule
 --------
