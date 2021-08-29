@@ -165,9 +165,9 @@ Schedule
 | Install Necessary Software/Libraries                 | August 28, 2020    | August 28, 2020             |
 | Graphical User Interface (GUI)                       | August 28, 2020    | March 5, 2021               |
 | Final Draft of Requirements                          | March 19, 2021     | April 6, 2021               |
-| User Input                                           | April 20, 2021     | April 30, 2021              |
-| Create Database Schema                               | September 24, 2021 | October 13, 2021            |
-| File Input/Output & File Conversion                  | October 29, 2021   | November 10, 2021           |
+| User Input                                           | August 30, 2021     | September 14, 2021              |
+| Create Database Schema                               | September 24, 2021 | October 10, 2021            |
+| File Input/Output & File Conversion                  | October 16, 2021   | November 1, 2021           |
 | Create a Test Plan                                   | November 17, 2021  | December 5, 2021            |
 | Testing Project for Bugs/Issues/Etc.                 | February 20, 2022  | March 2, 2022               |
 | Compile Results & Analyze/Fix Bugs                   | March 2, 2022      | March 15, 2022              |
