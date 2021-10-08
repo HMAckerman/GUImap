@@ -180,7 +180,7 @@ def main():
         event, values = window.read()
         if event in (sg.WIN_CLOSED, 'Exit'):        
             break
-        elif event == 'Start':                      
+        elif event == 'Start':                     
             params = ''
             for key in values:
                 if key not in input_definition:
@@ -238,5 +238,5 @@ def runCommand(cmd, timeout=None, window=None):
 
 if __name__ == '__main__':
     sg.theme('Dark Grey 14')
-    nmap_icon='../media/logo.png'
+    nmap_icon = '../media/logo.png'
     main()

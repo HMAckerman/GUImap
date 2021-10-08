@@ -32,7 +32,7 @@ def exitApp():
 	else:
 		messagebox.showinfo('Return', 'Returning to main application.')
 
-photo = PhotoImage(file = "media\nmaplogo.gif")
+photo = PhotoImage(file = "/home/hayden/Desktop/NmapDBProject/media/logo.png")
 root.iconphoto(False, photo)
 
 messagebox.showinfo("Database Created", sqlPy.create_database)
