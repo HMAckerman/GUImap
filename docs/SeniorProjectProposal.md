@@ -61,9 +61,9 @@ to their [website](https://www.sqlite.org/index.html).
 Libraries, Packages, Development Kits
 -------------------------------------
 
-1. **tkinter** ("Tk interface")
+1. **PySimpleGUI**
 
-    - a Python framework meant to build GUIs with pure code.
+    - a Python framework meant to streamline the building of GUIs with pure code.
 
 2. **SQLite**
 
