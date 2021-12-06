@@ -121,7 +121,7 @@ help_text = \
              nmap -v -iR 10000 -Pn -p 80
 """
 
-version = 'October 8, 2021'
+version = 'December 5, 2021'
 
 # This is a fixed-size text input. It returns a row with a text and an input element. 
 def FText(text, in_key=None, default=None, tooltip=None, input_size=None, text_size=None):
@@ -142,8 +142,8 @@ def main():
     input_definition = {
         '-USERNAME-' : ('', 'Username', '', (40,1),'the username for the database', []),
         '-PASSWORD-' : ('','Password', '', (40,1), 'the password for the user and the database', []),
-        '-TARGETS-' : ('', 'Target(s)', '', (40,1), "the IP/URL(s) to scan", []),
         '-FLAGS-' : ('', 'Flags', '', (40,1), "nmap flags to set scanning options", []),
+        '-TARGETS-' : ('', 'Target(s)', '', (40,1), "the IP/URL(s) to scan", []),
         '-DATABASE-' : ('', 'Database', '', (40,1), "the database to save scanning results to", [])
                     }
 
