@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 import subprocess
 import sys
+import os
 print(sg.version)
 
 help_text = \
@@ -121,7 +122,7 @@ help_text = \
              nmap -v -iR 10000 -Pn -p 80
 """
 
-version = 'December 5, 2021'
+version = 'December 8, 2021'
 
 # This is a fixed-size text input. It returns a row with a text and an input element. 
 def FText(text, in_key=None, default=None, tooltip=None, input_size=None, text_size=None):
@@ -132,23 +133,27 @@ def FText(text, in_key=None, default=None, tooltip=None, input_size=None, text_s
     return [sg.Text(text, size=text_size, justification='r', tooltip=tooltip),
             sg.Input(default_text=default, key=in_key, size=input_size, tooltip=tooltip)]
 
+# This function is for saving the scan results in a folder called 'scans', and asks for the filename
+# the user wishes to use.
+def ask_for_filename(default_filename='', initial_folder='scans', size=None):
+  if initial_folder is None:
+    initial_folder = os.getcwd()
 
 def main():
-
     # This GUI uses a large input dictionary to display the layout. It collects the parameters inputted to 
     # display the projected command-line input. The tuple, input_definition, contains information about each 
-    # display element. 
-
+    # display element. The keys, used to differentiate between each input field, is defined as -(Input field name)-. 
     input_definition = {
-        '-USERNAME-' : ('', 'Username', '', (40,1),'the username for the database', []),
-        '-PASSWORD-' : ('','Password', '', (40,1), 'the password for the user and the database', []),
+        '-USERNAME-' : ('', 'Username', '', (40,1),"the username for the database", []),
+        '-PASSWORD-' : ('','Password', '', (40,1), "the password for the user and the database", []),
+        '-DATABASE-' : ('', 'Database', '', (40,1), "the database to save scanning results to", []),
         '-FLAGS-' : ('', 'Flags', '', (40,1), "nmap flags to set scanning options", []),
         '-TARGETS-' : ('', 'Target(s)', '', (40,1), "the IP/URL(s) to scan", []),
-        '-DATABASE-' : ('', 'Database', '', (40,1), "the database to save scanning results to", [])
+        '-FILENAME-' : ('', 'Filename (optional)', '', (40,1), "the file to output scan results to", [])
                     }
 
     # This command will be invoked with the parameters.
-    command_to_run = r'nmap '
+    command_to_run = r'nmap'
 
     # Find the longest input description which is at index 1 in the table. 
     text_len = max([len(input_definition[key][1]) for key in input_definition])
@@ -164,34 +169,41 @@ def main():
             line += layout_def[5]
         layout += [line]
 
-    # The bottom part of layout does not draw from the table, but does display what the command-line input will be.
+    # The bottom part of the layout does not draw from the table, but does display what the command-line input will be.
     # It also displays various buttons that run the Start, Clear All, Help, and Exit commands. 
     layout += [[sg.Text('Constructed Command Line:')],
         [sg.Text(size=(80,3), key='-COMMAND LINE-', text_color='yellow', font='Courier 8')],
         [sg.Text('Command Line Output:')],
         [sg.Multiline(size=(80,10), reroute_stdout=True, reroute_stderr=False, reroute_cprint=True,  write_only=True, font='Courier 8', autoscroll=True, key='-ML-')],
-        [sg.Button('Start'), sg.Button('Clear All'), sg.Button('Help'), sg.Button('Exit')],
+        [sg.Button('Start'), sg.Button('Clear All'), sg.Button('Help'), sg.Button('Exit'), sg.Checkbox('Output to an XML file?', key='-FILEOUT-', default=False)],
         [sg.Text(f'Version : {version}          PySimpleGUI Version {sg.version.split(" ")[0]}', font='Any 8', text_color='yellow')]]
 
     # This displays the entirety of the text fields, buttons, and command-line output text field. 
     window = sg.Window('GUIMap', layout, icon=nmap_icon, element_justification='c', finalize=True)
 
+    # This reads the window for user input. When we read the window, keys will be stored in the values.
     while True:
         event, values = window.read()
         if event in (sg.WIN_CLOSED, 'Exit'):        
             break
         elif event == 'Start':                     
             params = ''
+            fname = values['-FILENAME-']
             for key in values:
                 if key not in input_definition:
                     continue
                 if values[key] != '':
                     # This piece of code is for the export of scanning results to a file. It has yet to be implemented,
                     # due to a complete rework of the GUI. 
-                    if 'file' in input_definition[key][0]:
-                        params += f'{input_definition[key][0]} "{values[key]}" '
+                    if values["-FILEOUT-"] == True:
+                        # params += values['-FLAGS-'] + values['-TARGETS-']
+                        params += f'{input_definition[key][0]} {values[key]}'
+                        database_options, scan_options = params.split('-', 1)
+                        print(database_options)
+                        print(scan_options)
                     else:
-                        params += f"{input_definition[key][0]} {values[key]} "
+                        params += f'{input_definition[key][0]} {values[key]}' + 'this is where it actually updates!!!'
+                        sg.popup("doesn't work")
 
             # The command to run, with the parameters pulled from the text fields.
             command = command_to_run + params
@@ -216,14 +228,12 @@ def main():
     window.close()
 
 # This code provides GUIMap with the capability to run nmap from the GUI, along with designated flags and targets.
-
 def runCommand(cmd, timeout=None, window=None):
     # Runs the command in a shell. 
     # cmd is the command to execute.
     # timeout is to watch for potential hanging of the command.
     # window is the PySimpleGUI window that the output is being displayed on. It refreshes to show updated output.
     # return is used to return the code from the command and command output.
-    
     p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ''
     for line in p.stdout:
@@ -231,10 +241,8 @@ def runCommand(cmd, timeout=None, window=None):
         output += line
         print(line)
         window.refresh() if window else None
-
     retval = p.wait(timeout)
     return (retval, output)
-
 
 if __name__ == '__main__':
     sg.theme('Dark Grey 14')
