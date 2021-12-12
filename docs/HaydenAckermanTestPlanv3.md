@@ -2,55 +2,46 @@
 
 ## Introduction
 
-1.  Overview
+1.  Overview  
+    This test plan describes the testing approach and overall framework
+    that will drive the testing of the GUIMap program.
 
- > This test plan describes the testing approach and overall framework
- > that will drive the testing of the GUIMap program.
+2.  Goals  
+    The goal of this test is to verify that the functionality of GUIMap
+    works according to the specifications. The test will execute and
+    verify test scripts, identify, fix, and retest all software bugs.
 
-2.  Goals
+    The final product of the test is:
 
- > The goal of this test is to verify that the functionality of GUIMap
- > works according to the specifications. The test will execute and
- > verify test scripts, identify, fix, and retest all software bugs.
+    -   A production-ready software.
 
- The final product of the test is:
+    -   A user-friendly UI.
 
--   A production-ready software.
+    -   A comprehensive graph that displays data pulled from the software.
 
--   A user-friendly UI.
+    -   An Ansible automation script.
 
--   A comprehensive graph that displays data pulled from the software.
-
--   An Ansible automation script.
-
-3.  Constraints
-    
- > This test will suffer from time-based constraints. Additionally, it
- > will suffer from the developer being unfamiliar with some software
- > components. The developer will have to consult documentation to
- > overcome these constraints.
+3.  Constraints  
+    This test will suffer from time-based constraints. Additionally, it
+    will suffer from the developer being unfamiliar with some software
+    components. The developer will have to consult documentation to
+    overcome these constraints.
 
 ## References
 
 1.  Documents
 
- > This test utilizes two documents:
-
--   Requirements.md & SeniorProjectProposal.md
+This test utilizes two documents: Requirements.md & SeniorProjectProposal.md
 
 ## Test Items
 
 1.  Software
+    This test will utilize several different software products:
 
- > This test will utilize several different software products:
-
--   SQLAlchemy 1.4.28
-
--   Grafana Enterprise Edition 8.2.0
-
--   SQLite 3.37.0
-
--   Visual Studio Code 1.63.0
+    -   SQLAlchemy 1.4.28
+    -   Grafana Enterprise Edition 8.2.0
+    -   SQLite 3.37.0
+    -   Visual Studio Code 1.63.0
 
 ## Features to be Tested
 
@@ -81,34 +72,30 @@
 
 ## Features Not to be Tested
 
-1. Features not Tested
-
- > All features will be tested.
+All features will be tested.
 
 ## Approach
 
-1.  Testing Methods
+### Testing Methods
 
--   Testing will consist of a case-by-case basis. For example, say that
-    I start with the Nmap scanning function. If that passes, I move to
-    the next testing module. I will keep testing until I run into a bug
-    or fault. At that point, I will attempt to fix the bug/fault, and
-    start back over. This process will be repeated until the product is
-    capable of smoothly operating.
+Testing will consist of a case-by-case basis. For example, say that
+I start with the Nmap scanning function. If that passes, I move to
+the next testing module. I will keep testing until I run into a bug
+or fault. At that point, I will attempt to fix the bug/fault, and
+start back over. This process will be repeated until the product is
+capable of smoothly operating.
 
-2.  Testing Levels
+## Testing Levels
 
- > Component testing will be used to ensure that each individual piece of
- > the software functions according to specifications. Most testing will
- > be done via manual means, such as entering scan data and database
- > data. This will ensure that the entered data is controlled. At a point
- > in the testing, I will begin utilizing “unconventional” data, to test
- > the robustness of the product. If automated testing is available,
- > depending on usability, it may be integrated as well.
+Component testing will be used to ensure that each individual piece of
+the software functions according to specifications. Most testing will
+be done via manual means, such as entering scan data and database
+data. This will ensure that the entered data is controlled. At a point
+in the testing, I will begin utilizing “unconventional” data, to test
+the robustness of the product. If automated testing is available,
+depending on usability, it may be integrated as well.
 
 ## Item Pass/Fail Criteria
-
- 7.1 Pass Criteria
 
 -   Nmap: In a physical environment with access to other machines, the
     user verifies the Nmap scanning tool shows that at least one system
@@ -138,8 +125,6 @@
     configure a system with set parameters to run GUIMap. All the user
     must do is deploy the GUIMap script on the system and execute it.
 
- 7.2 Fail Criteria
-
 -   Nmap: In a physical environment with access to other machines, the
     user verifies that the Nmap scanning tool fails to show that at
     least one system is online. In terms of network packets, unless
@@ -167,47 +152,42 @@
 
 ## Suspension Criteria and Resumption Requirements
 
-1.  Suspension Criteria
+### Suspension Criteria
 
- > Testing will be suspended upon encountering a notable decrease in
- > performance, a program-breaking bug, or segmentation faults. Another
- > suspension criteria is if assigned test resources are not available
- > when needed by the test team.
+Testing will be suspended upon encountering a notable decrease in
+performance, a program-breaking bug, or segmentation faults. Another
+suspension criteria is if assigned test resources are not available
+when needed by the test team.
 
-2.  Resumption Criteria
+### Resumption Criteria
 
- > If testing is suspended, resumption will only occur when the
- > problem(s) that caused the suspension have been resolved. When a
- > critical defect is the cause of the suspension, the fix must be
- > verified by the testing team before testing is resumed.
+If testing is suspended, resumption will only occur when the
+problem(s) that caused the suspension have been resolved. When a
+critical defect is the cause of the suspension, the fix must be
+verified by the testing team before testing is resumed.
 
 ## Test Deliverables
 
-1.  Test Plan
+1.  Test Plan  
+    This document itself is considered a test plan.
 
- > This document itself is considered a test plan.
+2.  Test Cases  
+    No test cases have been created yet.
 
-2.  Test Cases
+3.  Test Scripts  
+    No test scripts have been created yet.
 
- > No test cases have been created yet.
+4.  Defect/Enhancement Logs  
+    No Defect/Enhancement logs have been created yet.
 
-3.  Test Scripts
-
- > No test scripts have been created yet.
-
-4.  Defect/Enhancement Logs
-
- > No Defect/Enhancement logs have been created yet.
-
-5.  Test Reports
-
- > No test reports have been created yet.
+5.  Test Reports  
+    No test reports have been created yet.
 
 ## Test Environment
 
- 1. Hardware
+### Hardware
 
- > Testing will be done on the following hardware specs:
+Testing will be done on the following hardware specs:
 
 -   AMD Ryzen 7 3700x CPU, 8c/16t @ 4.2GHz
 
@@ -216,9 +196,9 @@
 -   Corsair Vengeance RGB PRO 32GB (2x16GB) DDR4 3200MHz CL16 in
     Dual-Channel mode
 
-2. Software
+### Software
 
- > Testing will be done with the following software:
+Testing will be done with the following software:
 
 -   Oracle Virtualbox Version 6.1.30 r148432 (Qt5.6.2)
 
@@ -230,25 +210,22 @@
 
 -   Microsoft Windows 10 Enterprise, 10.0.19043
 
-3. Network
+### Network
 
- > Testing will be done with the following network settings:
+Testing will be done with the following network settings:
 
 -   Virtual NAT through Oracle Virtualbox
 
 ## Estimate
 
-1. Costs and Effort
+### Costs and Effort
 
- > Testing will not cost anything in a monetary sense. Testing will take
- > at least 60+ hours of effort.
+Testing will not cost anything in a monetary sense. Testing will take at least 60+ hours of effort.
 
 ## Schedule
 
-1. Schedule
-
 | Task                                 | Start Date         | Completion Date (Estimated) |
-|--------------------------------------|--------------------|-----------------------------|
+|-------------------------------------:|--------------------|-----------------------------|
 | Create Project                       | August 28, 2020    | August 28, 2020             |
 | Install Necessary Software/Libraries | August 28, 2020    | August 28, 2020             |
 | Graphical User Interface (GUI)       | August 28, 2020    | March 5, 2021               |
@@ -263,15 +240,11 @@
 
 ## Staffing and Training Needs
 
-1. Staffing and Training
-
-> This testing does not require any special staffing or training.
+This testing does not require any special staffing or training.
 
 ## Responsibilities
 
-1. Responsibilities
-
-> This testing requires two team members to fulfill specialized roles:
+This testing requires two team members to fulfill specialized roles:
 
 -   Dr. Sean Hayes: Reviewing documentation, lead Quality Assurance
     engineer
@@ -280,62 +253,56 @@
 
 ## Risks
 
-1. Risks
+1. Risks  
+   This test plan has some assumed risks:
 
-> This test plan has some assumed risks:
+    -   The project will not be completed in time
 
--   The project will not be completed in time
+    -   Critical project-stopping bugs will happen
 
--   Critical project-stopping bugs will happen
+    -   Other schoolwork will take priority
 
--   Other schoolwork will take priority
+    -   Data corruption leads to loss of the project
 
--   Data corruption leads to loss of the project
+2. Mitigations  
+    There are mitigations in place for the risks:
 
-2. Mitigations
+    -   Responsible time management will ensure that the project is
+        completed in time
 
- > There are mitigations in place for the risks:
+    -   Debugging will help narrow down problem pieces of code
 
--   Responsible time management will ensure that the project is
-    completed in time
+    -   Balancing of schoolwork will ensure that equal attention is provided
+        to the project
 
--   Debugging will help narrow down problem pieces of code
-
--   Balancing of schoolwork will ensure that equal attention is provided
-    to the project
-
--   Several backups will ensure that if any data corruption occurs, its
-    effect will be minimal
+    -   Several backups will ensure that if any data corruption occurs, its
+        effect will be minimal
 
 ## Assumptions and Dependencies
 
-1. Assumptions
+1.  Assumptions  
+    This testing will have some assumptions:
 
-> This testing will have some assumptions:
+    -   Constantly working on the project will not be possible
 
--   Constantly working on the project will not be possible
+    -   Bugs will happen
 
--   Bugs will happen
+    -   Deadlines will need to be extended
 
--   Deadlines will need to be extended
+2.  Dependencies  
+    This testing has some dependencies:
 
-2. Dependencies
+    -   Scanning cannot be completed without the Nmap engine
 
- > This testing has some dependencies:
+    -   Storage of scanning results cannot be completed without the database
 
--   Scanning cannot be completed without the Nmap engine
+    -   The project cannot be completed without an IDE
 
--   Storage of scanning results cannot be completed without the database
+    -   The project cannot be completed without Python
 
--   The project cannot be completed without an IDE
-
--   The project cannot be completed without Python
-
--   Scanning cannot be completed without a network
+    -   Scanning cannot be completed without a network
 
 ## Approvals
 
-1. Approvals
-
-> The people that will have to approve the plan is Hayden Ackerman and Dr.
-> Sean Hayes.
+The people that will have to approve the plan is Hayden Ackerman and Dr.
+Sean T. Hayes.
