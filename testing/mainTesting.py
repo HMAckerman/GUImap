@@ -8,6 +8,7 @@ import csv
 import sqlite3
 import sqlalchemy
 import pandas as pd
+import xml.etree.ElementTree as etree
 from sqlalchemy import create_engine
 
 print(sg.version)
@@ -213,7 +214,9 @@ def main():
             file_flag = '-oX '
             file_name = values['-FILENAME-']
             xml_ext = '.xml'
+            csv_ext = '.csv'
             file_to_save = file_name + xml_ext
+            csv_name = file_name + csv_ext
             for key in values:
                 if key not in input_definition:
                     continue
@@ -238,8 +241,8 @@ def main():
             # If the user ticks both checkboxes, a database and table is created.
             if values['-FILEOUT-'] == True and values['-UPLOAD-'] == True:
                 params = flags + ' ' + targets + ' ' + file_flag + file_to_save
-                xml_conversion(file_name, file_to_save)
-                json_conversion(file_name)
+                data = xml_parse(file_to_save)
+                csv_parse(data, csv_name)
                 create_database(file_name, database, table_name)
 
             # When the scanning is done, the program alerts the user.
@@ -275,51 +278,97 @@ def runCommand(cmd, timeout=None, window=None):
     retval = p.wait(timeout)
     return (retval, output)
 
-# This code provides GUIMap with the capability to convert files from XML to JSON. First, the function
-# is called within the main body, and is passed the file_name and the file_to_save (the file name with a .xml extension).
-# Then, the XML file is read and loaded into a variable, after converting it to a dictionary datatype.
-# Next, the XML data is transformed into JSON objects, and is returned as a string. The string
-# is written to a file. 
-def xml_conversion(file_name, file_to_save):
-  json_ext = '.json'
-  xml_to_json = file_name + json_ext
-  with open(file_to_save) as xml_file:
-    data_dict = xmltodict.parse(xml_file.read())
-    xml_file.close()
+def get_data(root):
+    host_data = []
+    hosts = root.findall('host')
+    for host in hosts:
+        address_info = []
 
-    json_data = json.dumps(data_dict)
+        if not host.findall('status')[0].attrib['state'] == 'up':
+            continue
 
-    with open(xml_to_json, 'w') as json_file:
-      json_file.write(json_data)
-      json_file.close()
+        ip_address = host.findall('address')[0].attrib['addr']
+        host_name_search = host.findall('hostnames')
+        try:
+            host_name = host_name_search[0].findall('hostname')[0].attrib['name']
+        except IndexError:
+            host_name = ''
 
-# This code provides GUIMap with the capability to convert files from JSON to CSV, for uploading to the SQLite database.
-# First, the function is called within the main body, and is passed the file_name. Then, the JSON file is read and loaded into a variable.
-# A new CSV file is created, and is prepped with write permissions. Then, a csv_writer iterates through the JSON file,
-# and separates JSON objects by key-value pairs. This offers scalability, dependent on the number of scan results.
-# The CSV file is then saved and the filestream is closed.
-def json_conversion(file_name):
-  csv_ext = '.csv'
-  json_ext = '.json'
-  json_from_xml = file_name + json_ext
-  json_to_csv = file_name + csv_ext
-  with open(json_from_xml) as json_file:
-    jsondata = json.load(json_file)
+        try:
+            os_search = host.findall('os')
+            os_name = os_search[0].findall('osmatch')[0].attrib['name']
+        except IndexError:
+            os_name = ''
 
-  data_file = open(json_to_csv, 'w', newline='')
-  csv_writer = csv.writer(data_file)
+        try:
+            port_search = host.findall('ports')
+            ports = port_search[0].findall('port')
+            for port in ports:
+                port_data = []
+                protocol = port.attrib['protocol']
+                port_id = port.attrib['portid']
+                service = port.findall('service')[0].attrib['name']
+                try:
+                    product = port.findall('service')[0].attrib['product']
+                except(IndexError, KeyError):
+                    product = ''
+                try:
+                    servicefp = port.findall('service')[0].attrib['servicefp']
+                except(IndexError, KeyError):
+                    servicefp = ''
+                try:
+                    script_id = port.findall('script')[0].attrib['id']
+                except(IndexError, KeyError):
+                    script_id = ''
+                try:
+                    script_output = port.findall('script')[0].attrib['output']
+                except(IndexError, KeyError):
+                    script_output = ''
 
-  count = 0
-  for data in jsondata:
-    if count == 0:
-      header = jsondata[data].keys()
-      csv_writer.writerow(header)
-      count += 1
-    csv_writer.writerow(jsondata[data].values())
-  
-  data_file.close()
+                port_data.extend((ip_address, host_name, os_name, protocol,
+                                  port_id, service, product, servicefp,
+                                  script_id, script_output))
+                
+                host_data.append(port_data)
+        except IndexError:
+            address_info.extend((ip_address, host_name))
+            host_data.append(address_info)
+    return host_data
 
-#This code provides GUImap the capability to create a database, and upload scan results to the database. It uses
+def xml_parse(file_to_save):
+    try:
+        tree = etree.parse(file_to_save)
+    except Exception as error:
+        print("There was an error processing the XML file. Please try again: {}".format(error))
+        exit()
+    root = tree.getroot()
+    scan_results = get_data(root)
+    return scan_results
+
+def csv_parse(data, csv_name):
+    if not os.path.isfile(csv_name):
+        csv_file = open(csv_name, 'w', newline = '')
+        csv_writer = csv.writer(csv_file)
+        top_row = [
+            'IP', 'Host', 'OS', 'Protocol', 'Port', 'Service',
+            'Product', 'Service FP', 'NSE Script ID',
+            'NSE Script Output', 'Notes'
+        ]
+        csv_writer.writerow(top_row)
+    else:
+        try:
+            csv_file = open(csv_name, 'a', newline = '')
+        except PermissionError as e:
+            print("There was an error with opening the file. Please check to make sure you have the proper permissions.")
+            for item in data:
+                print(' '.join(item))
+            exit()
+        csv_writer = csv.writer(csv_file)
+    for item in data:
+        csv_writer.writerow(item)
+    csv_file.close()
+
+# This code provides GUImap the capability to create a database, and upload scan results to the database. It uses
 # SQLAlchemy to create the database, and SQLite3 to create a connection to it. It loads the CSV file (created when the user selects
 # the option to upload to a database) into a pandas dataframe. The dataframe converts it into a SQL statement, and passes it to the database.
 # The connection the database is then closed.

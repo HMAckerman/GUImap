@@ -9,7 +9,8 @@ db_ext = '.db'
 scan_database = database + db_ext
 file_name = 'scanresults'
 csv_ext = '.csv'
-csv_file = file_name + csv_ext
+# csv_file = file_name + csv_ext
+csv_file = 'test_scan.csv'
 
 engine = create_engine(f'sqlite:///{scan_database}', echo = True)
 conn = sqlite3.connect(scan_database)
