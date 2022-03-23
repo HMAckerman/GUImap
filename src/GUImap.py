@@ -3,6 +3,7 @@ import subprocess
 import sys
 import os
 import csv
+import shlex
 import sqlite3
 import sqlalchemy
 import pandas as pd
@@ -265,8 +266,8 @@ def runCommand(cmd, timeout=None, window=None):
     # timeout is to watch for potential hanging of the command.
     # window is the PySimpleGUI window that the output is being displayed on. It refreshes to show updated output.
     # return is used to return the code from the command and command output.
-    p = subprocess.Popen(
-        cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    args = shlex.split(cmd)
+    p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     output = ''
     for line in p.stdout:
         line = line.decode(errors='replace' if (sys.version_info) < (3, 5) else 'backslashreplace').rstrip()
