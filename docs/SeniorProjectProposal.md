@@ -79,6 +79,10 @@ Libraries, Packages, Development Kits
 
    - a command-line XSLT processor used to transform .xml files.
 
+5. **Ansible**
+
+   - a software-automation suite that utilizes "playbooks" to configure environments for software.
+
 Software/Equipment Needed
 -------------------------
 
@@ -111,6 +115,10 @@ Software/Equipment Needed
 7. **Xsltproc**
 
    - Needed to transform the .xml file into a human-readable format.
+
+8. **Ansible**
+   
+   - Needed to set up the environment for the program to run.
 
 Motivation
 ----------
