@@ -44,7 +44,7 @@ The user will be able to sort the data
 in the database, delete data in the database, edit data,
 and potentially merge data in the database. Furthermore, all
 data that the database
-possesses will be visualized using Grafana, an open-source analytics platform.
+possesses will be visualized using Xsltproc, a command-line XSLT processor.
 
 Proposed Implementation Language(s)
 -----------------------------------
@@ -75,9 +75,9 @@ Libraries, Packages, Development Kits
     - a Python SQL toolkit and Object Relational Mapper, allowing for
         efficient and high-performance database access.
 
-4. **Grafana SQLite Datasource**
+4. **Xsltproc**
 
-   - a Grafana backend plugin to allow using a SQLite database as a data source.
+   - a command-line XSLT processor used to transform .xml files.
 
 Software/Equipment Needed
 -------------------------
@@ -108,9 +108,9 @@ Software/Equipment Needed
 
    - IDE needed to code the project.
 
-7. **Grafana**
+7. **Xsltproc**
 
-   - Needed to observe and visualize data from the database.
+   - Needed to transform the .xml file into a human-readable format.
 
 Motivation
 ----------
@@ -153,8 +153,8 @@ it seems like it is easily modifiable to support larger sets of information.
 Next, I will implement file input and output, and conversion into CSV files.
 I anticipate that the main problem will be getting different file formats to
 cooperate nicely. However, Python 3 has numerous libraries dedicated to various
-file formats, so this problem might easily be mitigated. Finally, I will integrate the Grafana platform
-into the database, ensuring that the user will be able to visualize all their data.
+file formats, so this problem might easily be mitigated. Finally, I will utilize the Xsltproc
+engine, ensuring that the user will be able to visualize all of their data.
 
 Schedule
 --------
