@@ -11,12 +11,15 @@
         - git
         - libcap2-bin
         - xsltproc
+        - tk
+        - python3-tk
     - name: Install necessary python libraries using pip
       pip:
         name:
           - PySimpleGUI
           - xmltodict
           - sqlalchemy
+          - tk
           - pandas
     - name: Creates a directory for GUIMap
       file: 
