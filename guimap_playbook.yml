@@ -1,0 +1,29 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: Install nmap, pip, python3.8, git, libcap2-bin, and xsltproc
+      apt:
+        pkg:
+        - nmap
+        - python3-pip
+        - python3.8
+        - git
+        - libcap2-bin
+        - xsltproc
+    - name: Install necessary python libraries using pip
+      pip:
+        name:
+          - PySimpleGUI
+          - xmltodict
+          - sqlalchemy
+          - pandas
+    - name: Creates a directory for GUIMap
+      file: 
+        path: ../Desktop/GUImap
+        state: directory
+    - name: Unzips GUIMap
+      ansible.builtin.unarchive:
+        src: ../Downloads/GUIMAP.zip
+        dest: ../Desktop/GUImap
+        remote_src: yes
