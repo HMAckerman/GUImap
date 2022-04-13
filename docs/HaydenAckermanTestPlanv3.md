@@ -31,7 +31,7 @@
 
 1.  Documents
 
-This test utilizes two documents: Requirements.md & SeniorProjectProposal.md
+This test utilizes two documents: [Requirements.md](Requirements.md) & [SeniorProjectProposal.md](SeniorProjectProposal.md)
 
 ## Test Items
 
