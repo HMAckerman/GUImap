@@ -767,7 +767,7 @@ verified by the testing team before testing is resumed.
     This document itself is considered a test plan.
 
 2.  Test Cases  
-    No test cases have been created yet.
+    Please reference [TestCases.xlsx](TestCases.xlsx).
 
 3.  Test Scripts  
     No test scripts have been created yet.
@@ -903,3 +903,4 @@ Future Enhancements
 -  Properly implement a blocking mechanism to wait for the user to input their root password. Currently, the program
    continues to run, even if the user has not entered their root password.
 
+-  Finish out all things listed in Requirements.md, such as checkboxes for various scans, 
