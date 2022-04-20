@@ -330,6 +330,12 @@ def main():
                 data = xml_parse(file_to_save)
                 csv_parse(data, csv_name)
                 create_database(file_name, database, table_name)
+            
+            # If only the upload checkbox is ticked, upload an already existing file. 
+            if values["-UPLOAD-"] == True:
+                data = xml_parse(file_to_save)
+                csv_parse(data, csv_name)
+                create_database(file_name, database, table_name)
 
             # This command runs the xsltproc engine, and opens up a web browser with the xml turned html file.
             if values["-XSLT-"]:
